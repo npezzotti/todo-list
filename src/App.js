@@ -1,25 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import TodosList from './components/TodosList';
+import EditTodo from './components/EditTodo';
+import CreateTodo from './components/CreateTodo';
+import Signup from './components/Signup';
+import Signin from './components/Signin';
+import logo from "./favicon.ico";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <Link to="/" className="navbar-brand">
+            <img src={logo} width="30" height="30" alt="Logo" />
+            {" "}My Todo List
+          </Link>
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+              <li className="navbar-item">
+                <Link to="/" className="nav-link">Todos</Link>
+              </li>
+              <li className="navbar-item">
+                <Link to="/create" className="nav-link">Create Todo</Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <br/>
+        <Route path='/' exact component={TodosList} />
+        <Route path='/edit/:id' component={EditTodo} />
+        <Route path='/create' component={CreateTodo} />
+        <Route path='/signin' component={Signin} />
+        <Route path='/signup' component={Signup} />
+      </div>
+    </Router>
   );
 }
 
