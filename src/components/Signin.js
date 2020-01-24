@@ -59,11 +59,11 @@ export default class Signin extends Component {
         }
         return (
             <div className="container">
+                <h2 className="mt-5">Sign in</h2>
+                <p className="mb-5">New user? <Link to='/signup'>Sign up here.</Link> </p>
                 <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                     {error}
                 </div>
-                <h2 className="mt-5">Sign in</h2>
-                <p className="mb-5">New user? <Link to='/signup'>Sign up here.</Link> </p>
                 {this.signupForm(email, password)}
             </div>
         )

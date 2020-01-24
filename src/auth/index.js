@@ -8,9 +8,9 @@ export const signup = user => {
         body: JSON.stringify(user)
     })
     .then(response => {
-        return response.json()
+        return response.json();
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
 };
 
 export const signin = user => {
@@ -23,27 +23,36 @@ export const signin = user => {
         body: JSON.stringify(user)
     })
     .then(response => {
-        return response.json()
+        return response.json();
     })
-    .catch(error => console.log(error))
-}
+    .catch(error => console.log(error));
+};
 
 export const authenticate = (jwt, next) => {
     if (typeof window !== "undefined") {
         localStorage.setItem("jwt", JSON.stringify(jwt))
-        next()
+        next();
     }
-}
+};
 
 export const isAuthenticated = () => {
     if (typeof window == "undefined") {
         return false;
     }
     if (localStorage.getItem('jwt')) {
-        return JSON.parse(localStorage.getItem('jwt'))
-    } else return false
-}
+        return JSON.parse(localStorage.getItem('jwt'));
+    } else return false;
+};
 
-export const signout = () => {
-    
-}
+export const signout = (next) => {
+    if (typeof window !== "undefined") localStorage.removeItem("jwt");
+    next();
+    return fetch("http://localhost:3001/auth/signout", {
+        method: "GET"
+
+    })
+    .then(response => {
+        return response.json();
+    })
+    .catch(error => console.log(error))
+};
