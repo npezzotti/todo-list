@@ -79,7 +79,7 @@ export default class EditTodo extends Component {
         return (
             <div>
                 <h3 align="center">Update Todo</h3>
-                <div className="alert alert-primary" style={{display: error ? "" : "none"}}>
+                <div className="alert alert-danger" style={{display: error ? "" : "none"}}>
                     {error}
                 </div>
                 <form onSubmit={this.onSubmit}>

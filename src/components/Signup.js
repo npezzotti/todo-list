@@ -14,7 +14,7 @@ export default class Signup extends Component {
         }
     }
 
-    handleChange = (name,) => (event) => {
+    handleChange = (name) => (event) => {
         this.setState({
             [name]: event.target.value
         })
@@ -22,15 +22,17 @@ export default class Signup extends Component {
 
     onSubmit = event => {
         event.preventDefault()
+        const { name, email, password } = this.state
         const user = {
-            name: this.state.name,
-            email: this.state.email,
-            password: this.state.password
+            name,
+            email,
+            password
         }
         signup(user)
         .then(data => {
+            console.log(data)
             if (data.error) {
-                this.setState({ error: data.error })
+                return this.setState({ error: data.error })
             } else {
                 this.setState({
                     name: "",
@@ -68,7 +70,13 @@ export default class Signup extends Component {
         return (
             <div className="container">
                 <h2 className="mt-5 mb-5">Signup</h2>
-                {this.signupForm()}
+                <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
+                    {error}
+                </div>
+                <div className="alert alert-primary" style={{ display: open ? "" : "none" }}>
+                    New account successfully created- please <Link to="/signin">sign in.</Link>.
+                </div>
+                {this.signupForm(name, email, password)}
             </div>
         )
     }

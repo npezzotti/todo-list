@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { isAuthenticated } from '../auth';
 
 const Todo = props => (
     <tr>
@@ -48,7 +49,7 @@ export default class TodosList extends Component {
     render() {
         return (
             <div>
-                <h3 className="lead">Todos List</h3>
+                <h3 className="lead">{isAuthenticated().user.name}'s Todos</h3>
                 <table className="table table-striped" style={{marginTop: 20}}>
                     <thead>
                         <tr>

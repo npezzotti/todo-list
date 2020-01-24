@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import PrivateRoute from './auth/PrivateRoute'
 import TodosList from './components/TodosList';
 import EditTodo from './components/EditTodo';
 import CreateTodo from './components/CreateTodo';
@@ -28,9 +29,9 @@ function App() {
           </div>
         </nav>
         <br/>
-        <Route path='/' exact component={TodosList} />
-        <Route path='/edit/:id' component={EditTodo} />
-        <Route path='/create' component={CreateTodo} />
+        <PrivateRoute path='/' exact component={TodosList} />
+        <PrivateRoute path='/edit/:id' component={EditTodo} />
+        <PrivateRoute path='/create' component={CreateTodo} />
         <Route path='/signin' component={Signin} />
         <Route path='/signup' component={Signup} />
       </div>
