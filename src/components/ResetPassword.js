@@ -33,15 +33,23 @@ export default class ResetPassword extends Component {
     }
 
     render() {
+        const { message, error } = this.state;
         return (
             <div className="container">
                 <h4 className="mt-5 mb-5">Reset Your Password</h4>
-                {this.state.message && (
-                    <h4 className="bg-success">Great, now you can <Link to="/signin">sign in. </Link>with your new password.</h4>
+                {message && (
+                    <div className="alert alert-primary">
+                        Great! Now you can <Link to="/signin">login</Link> with your new password.
+                    </div>
                 )}
-                {this.state.error && (
-                    <h4 className="bg-warning">{this.state.error}</h4>
+                {error && (
+                    <div className="alert alert-danger">
+                        {error}
+                    </div>
                 )}
+                <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
+                    {error}
+                </div>
                 <form>
                     <div>
                         <input 

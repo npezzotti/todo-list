@@ -5,8 +5,8 @@ exports.sendEmail = emailData => {
     const transporter = nodeMailer.createTransport({
         service: "gmail",
         auth: {
-            user: "npezzotti80@gmail.com",
-            pass: "vnwdfgzzauixqdbs"
+            user: process.env.GOOGLE_EMAIL,
+            pass: process.env.GOOGLE_PASSWORD
         }
     })
     return (
