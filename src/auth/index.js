@@ -68,3 +68,39 @@ export const updateUser = (user, next) => {
         };
     };
 }
+
+export const forgotPassword = email => {
+    console.log("email: ", email)
+    return fetch("http://localhost:3001/auth/forgot-password", {
+        method: "PUT",
+        headers: {
+            accept: "application/json",
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({ email })
+    })
+    .then(response => {
+        console.log("forgot password response: ", response)
+        return response.json()
+    })
+    .catch(error => { console.log(error) })
+
+}
+
+export const resetPassword = resetInfo => {
+    return fetch("http://localhost:3001/auth/reset-password", {
+        method: "PUT",
+        headers: {
+            accept: "application/json",
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(resetInfo)
+    })
+    .then(response => {
+        console.log(response)
+        return response.json()
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}

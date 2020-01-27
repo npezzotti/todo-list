@@ -92,7 +92,7 @@ export default class Signup extends Component {
                     {error}
                 </div>
                 <div className="alert alert-primary" style={{ display: open ? "" : "none" }}>
-                    New account successfully created- please <Link to="/signin">sign in.</Link>.
+                    New account successfully created- please <Link to="/signin">sign in.</Link>
                 </div>
                 {this.signupForm(name, email, password)}
             </div>

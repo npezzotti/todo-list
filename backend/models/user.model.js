@@ -24,7 +24,11 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    updated: Date
+    updated: Date,
+    resetPasswordLink: {
+        type: String,
+        default: ""
+    }
 })
 
 userSchema.virtual('password')

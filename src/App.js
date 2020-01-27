@@ -8,6 +8,8 @@ import Signup from './components/Signup';
 import Signin from './components/Signin';
 import NavBar from './components/NavBar';
 import Settings from './components/Settings';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 
 function App() {
   return (
@@ -15,12 +17,14 @@ function App() {
       <div className="container">
         <NavBar />
         <br />
-        <PrivateRoute path='/' exact component={TodosList} />
-        <PrivateRoute path='/edit/:id' component={EditTodo} />
-        <PrivateRoute path='/create' component={CreateTodo} />
-        <PrivateRoute path='/settings' component={Settings} />
-        <Route path='/signin' component={Signin} />
-        <Route path='/signup' component={Signup} />
+        <PrivateRoute exact path='/' component={TodosList} />
+        <PrivateRoute exact path='/edit/:id' component={EditTodo} />
+        <PrivateRoute exact path='/create' component={CreateTodo} />
+        <PrivateRoute exact path='/settings' component={Settings} />
+        <Route exact path='/signin' component={Signin} />
+        <Route exact path='/signup' component={Signup} />
+        <Route exact path='/forgot-password' component={ForgotPassword} />
+        <Route exact path='/reset-password/:resetPasswordToken' component={ResetPassword} />
       </div>
     </Router>
   );
