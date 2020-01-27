@@ -45,6 +45,24 @@ export default class Signup extends Component {
         })
     }
 
+    isValid = () => {
+        const { name, email, password } = this.state;
+        
+        if(name.length === 0) {
+            this.setState({error: "Name is required"})
+            return false
+        }
+        if(!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(email)) {
+            this.setState({error: "Valid email is required"})
+            return false
+        }
+        if(password.length > 0 && password.length < 6) {
+            this.setState({error: "Password must be more than 5 characters."})
+            return false;
+        }
+        return true;
+    }
+
     signupForm = (name, email, password) => (
         <form>
             <div className="form-group">

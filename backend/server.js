@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const logger = require('morgan');
 const expressValidator = require('express-validator');
 const mongoose = require('mongoose');
 const todoRoutes = require('./routes/todos');
@@ -13,6 +14,7 @@ const PORT = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(expressValidator());
+app.use(logger());
 
 mongoose.connect('mongodb://127.0.0.1:27017/todos', { useNewUrlParser: true });
 const connection = mongoose.connection;

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { isAuthenticated } from '../auth';
 
 export default class CreateTodo extends Component {
     constructor(props) {
@@ -30,7 +31,8 @@ export default class CreateTodo extends Component {
             todo_description: this.state.todo_description,
             todo_notes: this.state.todo_notes,
             todo_priority: this.state.todo_priority,
-            todo_completed: false
+            todo_completed: false,
+            postedBy: isAuthenticated().user._id
         }
 
         if (!newTodo.todo_description) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route } from 'react-router-dom';
 import PrivateRoute from './auth/PrivateRoute';
 import TodosList from './components/TodosList';
 import EditTodo from './components/EditTodo';
@@ -7,6 +7,7 @@ import CreateTodo from './components/CreateTodo';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
 import NavBar from './components/NavBar';
+import Settings from './components/Settings';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <PrivateRoute path='/' exact component={TodosList} />
         <PrivateRoute path='/edit/:id' component={EditTodo} />
         <PrivateRoute path='/create' component={CreateTodo} />
+        <PrivateRoute path='/settings' component={Settings} />
         <Route path='/signin' component={Signin} />
         <Route path='/signup' component={Signup} />
       </div>

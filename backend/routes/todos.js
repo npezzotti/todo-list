@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { getTodos, getTodoById, createTodo, updateTodo, deleteTodo } = require('../controllers/todos');
+const { getTodos, getTodosByUser, getTodoById, createTodo, updateTodo, deleteTodo } = require('../controllers/todos');
 
 router.get('/', getTodos);
+router.get('/postedBy/:userId', getTodosByUser);
 router.get('/:id', getTodoById);
 router.post('/add', createTodo);
-router.post('/update/:id', updateTodo);
-router.delete('/delete/:id', deleteTodo);
+router.post('/:id', updateTodo);
+router.delete('/:id', deleteTodo);
 
 module.exports = router;

@@ -24,18 +24,34 @@ export default class TodosList extends Component {
         this.state = {todos: []};
     };
 
-    componentDidMount() {
-        axios.get('http://localhost:3001/todos')
+    getTodos = () => {
+        const token = isAuthenticated().token;
+        const userId = isAuthenticated().user._id
+        fetch(`http://localhost:3001/todos/postedBy/${userId}`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        })
         .then(response => {
-            this.setState({ todos: response.data })
+            return response.json()
+        })
+        .then(data => {
+            this.setState({ todos: data })
         })
         .catch(function(error) {
             console.log(error);
         });
+    }
+
+    componentDidMount() {
+        this.getTodos()
     };
 
     async deleteTodo(id) {
-        await axios.delete('http://localhost:3001/todos/delete/' + id)
+        await axios.delete('http://localhost:3001/todos/' + id)
             .then(response => console.log(response))
             .catch(error => console.log(error));
     };

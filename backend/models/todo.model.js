@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { ObjectId } = Schema;
 
 let Todo = new Schema({
     todo_description: {
@@ -13,6 +14,10 @@ let Todo = new Schema({
     },
     todo_completed: {
         type: Boolean
+    },
+    postedBy: {
+        type: ObjectId,
+        ref: "User"
     }
 });
 

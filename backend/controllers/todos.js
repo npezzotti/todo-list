@@ -5,11 +5,7 @@ exports.getTodos = (req, res) => {
         if (err) {
             return res.status(400).json({error: err});
         } 
-        res.json(todos.sort((a, b) => {
-            if ((a.todo_priority === "High") || (a.todo_priority === "Medium" && b.todo_priority === "Low")) return -1
-            else if (a.todo_priority === b.todo_priority) return 0
-            else return 1 
-        }))
+        res.json(todos)
     })
 };
 
@@ -22,6 +18,23 @@ exports.getTodoById = (req, res) => {
             })
         }
         res.json(todo)
+    });
+};
+
+exports.getTodosByUser = (req, res) => {
+    Todo.find({postedBy: req.params.userId})
+    .populate("postedBy", "_id name")
+    .exec((err, todos) => {
+        if (err) {
+            return res.status(400).json({
+                error: err
+            })
+        };
+        res.json(todos.sort((a, b) => {
+            if ((a.todo_priority === "High") || (a.todo_priority === "Medium" && b.todo_priority === "Low")) return -1
+            else if (a.todo_priority === b.todo_priority) return 0
+            else return 1 
+        }));
     });
 };
 

@@ -68,7 +68,7 @@ export default class EditTodo extends Component {
         if (updatedTodo.todo_notes.length > 50 || updatedTodo.todo_description.length > 50) {
             return this.setState({ error: "Text fields must be under 50 characters."})
         }
-        await axios.post('http://localhost:3001/todos/update/' + this.props.match.params.id, updatedTodo)
+        await axios.post('http://localhost:3001/todos/' + this.props.match.params.id, updatedTodo)
             .then (res => console.log(res.data))
             .catch(error => console.log(error));
         this.props.history.push('/');
