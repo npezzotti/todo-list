@@ -53,7 +53,7 @@ export default class Signin extends Component {
     )
 
     render() {
-        const { email, password, error, redirect } = this.state
+        const { email, password, error, redirect, loading } = this.state
         if (redirect) {
             return <Redirect to='/' />
         }
@@ -64,6 +64,13 @@ export default class Signin extends Component {
                 <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                     {error}
                 </div>
+                {loading ? (
+                    <div className="jumbotron text-center">
+                        <h2>Loading</h2>
+                    </div> 
+                ) : (
+                    ""
+                )}
                 {this.signupForm(email, password)}
                 <p>
                     <Link to="/forgot-password" className="text-danger">

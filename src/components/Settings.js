@@ -82,6 +82,7 @@ export default class Settings extends Component {
             {user && open ? (
                 <EditProfile user={user} flip={this.flip} getUser={this.getUser} />
                 ) : (
+                    this.state.user ? 
                     <div className="container">
                     <h2 className="mt-5 mb-5">Hi {user.name}</h2>
                     <div className="col-md-8">
@@ -95,6 +96,10 @@ export default class Settings extends Component {
                         </div>
                     </div>
                     </div>
+                    :
+                    <div className="jumbotron text-center">
+                        <h2>Loading</h2>
+                    </div> 
                 )
             }
             </>

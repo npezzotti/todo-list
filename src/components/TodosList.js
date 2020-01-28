@@ -65,20 +65,28 @@ export default class TodosList extends Component {
     render() {
         return (
             <div>
-                <h3 className="lead">{isAuthenticated().user.name}'s Todos</h3>
-                <table className="table table-striped" style={{marginTop: 20}}>
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Notes</th>
-                            <th>Priority</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { this.todoList() }
-                    </tbody>
-                </table>
+                {!this.state.todos ? (
+                    <div className="jumbotron text-center">
+                        <h2>Loading</h2>
+                    </div>
+                ) : (
+                    <>
+                    <h3 className="lead">{isAuthenticated().user.name}'s Todos</h3>
+                    <table className="table table-striped" style={{marginTop: 20}}>
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Notes</th>
+                                <th>Priority</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { this.todoList() }
+                        </tbody>
+                    </table>
+                    </>
+                )}
             </div>
         );
     };

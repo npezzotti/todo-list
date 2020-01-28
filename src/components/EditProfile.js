@@ -8,7 +8,8 @@ export default class EditProfile extends Component {
             name: this.props.user.name,
             email: this.props.user.email,
             password: "",
-            error: ""
+            error: "",
+            loading: false
         }
     }
 
@@ -21,6 +22,7 @@ export default class EditProfile extends Component {
     onSubmit =  async event => {
         event.preventDefault();
         if (this.isValid()) {
+            this.setState({ loading: true })
             const token = isAuthenticated().token;
             const user = {
                 name: this.state.name,
@@ -99,13 +101,20 @@ export default class EditProfile extends Component {
     )
 
     render() {
-        const { name, email, password, error } = this.state;
+        const { name, email, password, error, loading } = this.state;
         return (
             <div className="container">
                 <h2 className="mt-5 mb-5">Edit Info</h2>
                 <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                     {error}
                 </div>
+                {loading ? (
+                    <div className="jumbotron text-center">
+                        <h2>Loading</h2>
+                    </div> 
+                ) : (
+                    ""
+                )}
                 {this.editForm(name, email, password)}
             </div>
         )

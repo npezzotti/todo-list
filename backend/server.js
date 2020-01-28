@@ -9,18 +9,23 @@ const todoRoutes = require('./routes/todos');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const PORT = 3001;
+const dotenv = require('dotenv')
 
+dotenv.config()
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(logger());
 
-mongoose.connect('mongodb://127.0.0.1:27017/todos', { useNewUrlParser: true });
-const connection = mongoose.connection;
+mongoose.connect(
+    process.env.MONGO_URI,
+    {useNewUrlParser: true}
+)
+.then(() => console.log('DB Connected'))
 
-connection.once('open', function() {
-    console.log("MongoDB database connection established successfully");
+mongoose.connection.on('error', err => {
+    console.log('DB connection error: ' + err.message)
 })
 
 app.use('/todos', todoRoutes);

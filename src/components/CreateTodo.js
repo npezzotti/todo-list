@@ -14,7 +14,8 @@ export default class CreateTodo extends Component {
             todo_notes: "",
             todo_priority: "",
             todo_completed: false,
-            error: ""
+            error: "",
+            loading: false
         }
     }
 
@@ -27,6 +28,7 @@ export default class CreateTodo extends Component {
 
     async onSubmit(e) {
         e.preventDefault()
+        this.setState({ loading: true })
         const newTodo = {
             todo_description: this.state.todo_description,
             todo_notes: this.state.todo_notes,
@@ -58,13 +60,20 @@ export default class CreateTodo extends Component {
 
     }
     render() {
-        const { todo_description, todo_notes, todo_priority, error } = this.state;
+        const { todo_description, todo_notes, todo_priority, error, loading } = this.state;
         return (
             <div style={{marginTop: 10}}>
                 <h3>Create New Todo</h3>
                 <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                     {error}
                 </div>
+                {loading ? (
+                    <div className="jumbotron text-center">
+                        <h2>Loading</h2>
+                    </div> 
+                ) : (
+                    ""
+                )}
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Description</label>
