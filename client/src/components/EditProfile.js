@@ -28,7 +28,7 @@ export default class EditProfile extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        fetch(`http://localhost:3001/users/${this.props.user._id}`, {
+        fetch(`/users/${this.props.user._id}`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -68,7 +68,7 @@ export default class EditProfile extends Component {
                 <input onChange={this.handleChange("email")} value={email} type="email" className="form-control" />
             </div>
             <div className="form-group">
-                <label className="text-muted">Password (Change or enter old password for authentication)</label>
+                <label className="text-muted">Password (change or enter old password for authentication)</label>
                 <input onChange={this.handleChange("password")} value={password} type="password" className="form-control" />
             </div>
             <button onClick={this.onSubmit} className="btn btn-raised btn-primary mr-2">

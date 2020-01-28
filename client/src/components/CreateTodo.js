@@ -47,7 +47,7 @@ export default class CreateTodo extends Component {
             return this.setState({ error: "Text fields must be under 50 characters."})
         }
 
-        await axios.post('http://localhost:3001/todos/add', newTodo)
+        await axios.post('/todos/add', newTodo)
             .then(res => console.log(res.data));
 
         this.setState({

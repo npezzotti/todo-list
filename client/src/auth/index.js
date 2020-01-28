@@ -1,5 +1,5 @@
 export const signup = user => {
-    return fetch('http://localhost:3001/auth/signup', {
+    return fetch('/auth/signup', {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -14,7 +14,7 @@ export const signup = user => {
 };
 
 export const signin = user => {
-    return fetch('http://localhost:3001/auth/signin', {
+    return fetch('/auth/signin', {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -47,7 +47,7 @@ export const isAuthenticated = () => {
 export const signout = (next) => {
     if (typeof window !== "undefined") localStorage.removeItem("jwt");
     next();
-    return fetch("http://localhost:3001/auth/signout", {
+    return fetch("/auth/signout", {
         method: "GET"
 
     })
@@ -71,7 +71,7 @@ export const updateUser = (user, next) => {
 
 export const forgotPassword = email => {
     console.log("email: ", email)
-    return fetch("http://localhost:3001/auth/forgot-password", {
+    return fetch("/auth/forgot-password", {
         method: "PUT",
         headers: {
             accept: "application/json",
@@ -88,7 +88,7 @@ export const forgotPassword = email => {
 }
 
 export const resetPassword = resetInfo => {
-    return fetch("http://localhost:3001/auth/reset-password", {
+    return fetch("/auth/reset-password", {
         method: "PUT",
         headers: {
             accept: "application/json",

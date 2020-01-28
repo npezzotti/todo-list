@@ -27,7 +27,7 @@ export default class TodosList extends Component {
     getTodos = () => {
         const token = isAuthenticated().token;
         const userId = isAuthenticated().user._id
-        fetch(`http://localhost:3001/todos/postedBy/${userId}`, {
+        fetch(`/todos/postedBy/${userId}`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -51,7 +51,7 @@ export default class TodosList extends Component {
     };
 
     async deleteTodo(id) {
-        await axios.delete('http://localhost:3001/todos/' + id)
+        await axios.delete('/todos/' + id)
             .then(response => console.log(response))
             .catch(error => console.log(error));
     };

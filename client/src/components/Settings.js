@@ -20,7 +20,7 @@ export default class Settings extends Component {
     getUser = () => {
         const userId = isAuthenticated().user._id;
         const token = isAuthenticated().token;
-        fetch(`http://localhost:3001/users/${userId}`, {
+        fetch(`/users/${userId}`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -49,7 +49,7 @@ export default class Settings extends Component {
     remove = () => {
         const userId = this.state.user._id;
         const token = isAuthenticated().token;
-        fetch(`http://localhost:3001/users/${userId}`, {
+        fetch(`/users/${userId}`, {
             method: "DELETE",
             headers: {
                 Accept: "application/json",
