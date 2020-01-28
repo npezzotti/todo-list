@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const logger = require('morgan');
 const expressValidator = require('express-validator');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const todoRoutes = require('./routes/todos');
 const userRoutes = require('./routes/users');
