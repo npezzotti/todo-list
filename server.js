@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
-}
-
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -12,8 +8,8 @@ const mongoose = require('mongoose');
 const todoRoutes = require('./routes/todos');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
-const PORT = 3001;
-
+const port = process.env.PORT || 3001;
+const path = require('path')
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -34,6 +30,12 @@ app.use('/todos', todoRoutes);
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 
-app.listen(process.env.PORT || PORT, function() {
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.get('*', (req, res) => {    
+        res.sendfile(path.resolve(__dirname = 'client', 'build', 'index.html'));  })}
+
+
+app.listen(port, function() {
     console.log("Server is running on Port: " + PORT);
 });
