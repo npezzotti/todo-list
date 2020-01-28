@@ -68,7 +68,7 @@ export default class EditProfile extends Component {
                 <input onChange={this.handleChange("email")} value={email} type="email" className="form-control" />
             </div>
             <div className="form-group">
-                <label className="text-muted">Password</label>
+                <label className="text-muted">Password (Change or enter old password for authentication)</label>
                 <input onChange={this.handleChange("password")} value={password} type="password" className="form-control" />
             </div>
             <button onClick={this.onSubmit} className="btn btn-raised btn-primary mr-2">
