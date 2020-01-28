@@ -21,27 +21,29 @@ export default class EditProfile extends Component {
 
     onSubmit =  async event => {
         event.preventDefault();
-        if (this.isValid()) {
-            this.setState({ loading: true })
-            const token = isAuthenticated().token;
-            const user = {
-                name: this.state.name,
-                email: this.state.email,
-                password: this.state.password
-            }
-            fetch(`http://localhost:3001/users/${this.props.user._id}`, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(user)
-            })
-            .then(response => {
-                return response.json()
-            })
-            .then(data => {
+        this.setState({ loading: true })
+        const token = isAuthenticated().token;
+        const user = {
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password
+        }
+        fetch(`http://localhost:3001/users/${this.props.user._id}`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            if (data.error) {
+                return this.setState({ error: data.error, loading: false })
+            } else {
                 const tokenData = {
                     _id: data._id,
                     name: data.name,
@@ -49,32 +51,10 @@ export default class EditProfile extends Component {
                 }
                 updateUser(tokenData, () => {
                     this.props.getUser()
-                    this.props.flip()
-    
+                    this.props.flip()    
                 })
-            })
-            .catch(error => {
-                console.log(error)
-            })
-        }
-    }
-
-    isValid = () => {
-        const { name, email, password } = this.state;
-
-        if(name.length === 0) {
-            this.setState({error: "Name is required"})
-            return false
-        }
-        if(!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(email)) {
-            this.setState({error: "Valid email is required"})
-            return false
-        }
-        if(password.length > 0 && password.length < 6) {
-            this.setState({error: "Password must be more than 5 characters."})
-            return false;
-        }
-        return true;
+            }
+        })
     }
 
     editForm = (name, email, password) => (
