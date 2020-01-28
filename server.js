@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -9,15 +13,6 @@ const todoRoutes = require('./routes/todos');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const PORT = 3001;
-const dotenv = require('dotenv')
-
-dotenv.config()
-
-// ... other imports 
-const path = require("path")
-
-// ... other app.use middleware 
-app.use(express.static(path.join(__dirname, "client", "build")))
 
 
 app.use(cors());
@@ -39,12 +34,6 @@ app.use('/todos', todoRoutes);
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 
-// ...
-// Right before your app.listen(), add this:
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
-
-app.listen(PORT, function() {
+app.listen(process.env.PORT || PORT, function() {
     console.log("Server is running on Port: " + PORT);
 });
