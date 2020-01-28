@@ -15,6 +15,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(logger());
+app.use(cookieParser());
+
 
 mongoose.connect(
     process.env.MONGO_URI,
