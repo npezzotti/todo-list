@@ -10,7 +10,7 @@ function NavBar({ history }) {
             <img src={logo} width="30" height="30" alt="Logo" />
             {" "}My Todo List
           </Link>
-          <div className="collapse navbar-collapse">
+          <div className="navbar-collapse">
             <ul className="navbar-nav mr-auto">
                 <li className="navbar-item">
                     <Link to="/" className="nav-link">Todos</Link>
@@ -23,7 +23,7 @@ function NavBar({ history }) {
                         <li className="navbar-item">
                             <Link to='/settings' className="nav-link">Settings</Link>
                         </li>
-                        <li className="nav-item">
+                        <li className="navbar-item">
                             <span className="nav-link" style={{cursor: "pointer"}} onClick={() => signout(() => history.push('/'))}>
                                 Sign out
                             </span>
