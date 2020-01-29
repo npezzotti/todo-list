@@ -6,12 +6,15 @@ import { signout, isAuthenticated } from '../auth';
 function NavBar({ history }) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <Link to="/" className="navbar-brand">
-            <img src={logo} width="30" height="30" alt="Logo" />
-            {" "}My Todo List
-          </Link>
-          <div className="navbar-collapse">
-            <ul className="navbar-nav mr-auto">
+            <Link to="/" className="navbar-brand">
+                <img src={logo} width="30" height="30" alt="Logo" />
+                {" "}My Todo List
+            </Link>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul className="navbar-nav">
                 <li className="navbar-item">
                     <Link to="/" className="nav-link">Todos</Link>
                 </li>
