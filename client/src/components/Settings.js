@@ -84,17 +84,17 @@ export default class Settings extends Component {
                 ) : (
                     this.state.user ? 
                     <div className="container">
-                    <h2 className="mb-5">Hi {user.name}</h2>
-                    <div className="col-md-8">
-                        <div className="lead mt-2">
-                            <p>Email: {user.email}</p>
-                            <p>{`Joined ${new Date(this.state.user.created).toDateString()}`}</p>
+                        <h3 className="mt-5 mb-5">Hi {user.name}</h3>
+                        <div className="col-md-8">
+                            <div className="lead mt-2">
+                                <p>Email: {user.email}</p>
+                                <p>{`Joined ${new Date(this.state.user.created).toDateString()}`}</p>
+                            </div>
+                            <div className="d-inline-block">
+                                <button className="btn btn-raised btn-primary mr-2" onClick={this.flip}>Edit</button>
+                                <button onClick={this.deleteConfirmed} className="btn btn-raised btn-warning">Delete Account</button>
+                            </div>
                         </div>
-                        <div className="d-inline-block">
-                            <button className="btn btn-raised btn-primary mr-2" onClick={this.flip}>Edit</button>
-                            <button onClick={this.deleteConfirmed} className="btn btn-raised btn-warning">Delete Account</button>
-                        </div>
-                    </div>
                     </div>
                     :
                     <div className="jumbotron text-center">

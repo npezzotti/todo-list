@@ -78,7 +78,7 @@ export default class EditTodo extends Component {
         const { todo_description, todo_notes, todo_priority, todo_completed, error } = this.state;
         return (
             <div>
-                <h3 align="center">Update Todo</h3>
+                <h3 className="mt-5 mb-5">Update Todo</h3>
                 <div className="alert alert-danger" style={{display: error ? "" : "none"}}>
                     {error}
                 </div>

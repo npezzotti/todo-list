@@ -84,7 +84,7 @@ export default class EditProfile extends Component {
         const { name, email, password, error, loading } = this.state;
         return (
             <div className="container">
-                <h2 className="mt-5 mb-5">Edit Info</h2>
+                <h3 className="mt-5 mb-5">Edit Info</h3>
                 <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                     {error}
                 </div>
