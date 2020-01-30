@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { isAuthenticated } from '../auth';
 import axios from 'axios';
 
 export default class EditTodo extends Component {
@@ -68,10 +69,26 @@ export default class EditTodo extends Component {
         if (updatedTodo.todo_notes.length > 50 || updatedTodo.todo_description.length > 50) {
             return this.setState({ error: "Text fields must be under 50 characters."})
         }
-        await axios.post('/todos/' + this.props.match.params.id, updatedTodo)
-            .then (res => console.log(res.data))
-            .catch(error => console.log(error));
-        this.props.history.push('/');
+
+        const token = isAuthenticated().token;
+
+        fetch('/todos/' + this.props.match.params.id, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(updatedTodo)
+        })
+        .then(response => { 
+            return response.json() 
+        })
+        .then(data => {
+            console.log(data)
+            this.props.history.push('/');
+        })
+        .catch(error => console.log(error));
     }
 
     render() {

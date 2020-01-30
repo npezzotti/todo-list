@@ -39,6 +39,7 @@ exports.getTodosByUser = (req, res) => {
 };
 
 exports.createTodo = (req, res) => {
+    console.log(req.body)
     let todo = new Todo(req.body);
     todo.save()
     .then(todo => {

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import { isAuthenticated } from '../auth';
 
 export default class CreateTodo extends Component {
@@ -47,17 +46,31 @@ export default class CreateTodo extends Component {
             return this.setState({ error: "Text fields must be under 50 characters."})
         }
 
-        await axios.post('/todos/add', newTodo)
-            .then(res => console.log(res.data));
+        const token = isAuthenticated().token
 
-        this.setState({
-            todo_description: '',
-            todo_notes: '',
-            todo_priority: '',
-            todo_completed: false
+        fetch('/todos/add', {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(newTodo)
         })
-        this.props.history.push('/');
-
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            console.log(data)
+            this.setState({
+                todo_description: '',
+                todo_notes: '',
+                todo_priority: '',
+                todo_completed: false
+            })
+            this.props.history.push('/');
+        })
+        .catch(err => console.log(err))
     }
     render() {
         const { todo_description, todo_notes, todo_priority, error, loading } = this.state;

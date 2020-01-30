@@ -10,8 +10,8 @@ function NavBar({ history }) {
                 <img src={logo} width="30" height="30" alt="Logo" />
                 {" "}My Todo List
             </Link>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="collapsibleNavbar">
             <ul className="navbar-nav">

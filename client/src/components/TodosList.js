@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { isAuthenticated } from '../auth';
 
 const Todo = props => (
@@ -21,10 +20,11 @@ export default class TodosList extends Component {
         this.todoList = this.todoList.bind(this);
         this.deleteTodo = this.deleteTodo.bind(this);
 
-        this.state = {todos: []};
+        this.state = {todos: [], loading: false};
     };
 
     getTodos = () => {
+        this.setState({loading: true})
         const token = isAuthenticated().token;
         const userId = isAuthenticated().user._id
         fetch(`/todos/postedBy/${userId}`, {
@@ -39,7 +39,7 @@ export default class TodosList extends Component {
             return response.json()
         })
         .then(data => {
-            this.setState({ todos: data })
+            this.setState({ todos: data, loading: false })
         })
         .catch(function(error) {
             console.log(error);
@@ -50,10 +50,22 @@ export default class TodosList extends Component {
         this.getTodos()
     };
 
-    async deleteTodo(id) {
-        await axios.delete('/todos/' + id)
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
+    deleteTodo(id) {
+        const token = isAuthenticated().token;
+
+        fetch('/todos/' + id, {
+            method: "DELETE",
+            Accept: "application/json",
+            "Content-type": "application/json",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
     };
 
     todoList() {
@@ -65,7 +77,7 @@ export default class TodosList extends Component {
     render() {
         return (
             <div>
-                {!this.state.todos ? (
+                {this.state.loading ? (
                     <div className="jumbotron text-center">
                         <h2>Loading</h2>
                     </div>
