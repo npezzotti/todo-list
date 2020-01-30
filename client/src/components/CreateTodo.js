@@ -63,7 +63,7 @@ export default class CreateTodo extends Component {
         const { todo_description, todo_notes, todo_priority, error, loading } = this.state;
         return (
             <div style={{marginTop: 10}}>
-                <h3>Create New Todo</h3>
+                <h3 className="mb-5">Create New Todo</h3>
                 <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                     {error}
                 </div>

@@ -84,7 +84,7 @@ export default class Settings extends Component {
                 ) : (
                     this.state.user ? 
                     <div className="container">
-                    <h2 className="mt-5 mb-5">Hi {user.name}</h2>
+                    <h2 className="mb-5">Hi {user.name}</h2>
                     <div className="col-md-8">
                         <div className="lead mt-2">
                             <p>Email: {user.email}</p>
