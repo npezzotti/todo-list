@@ -53,18 +53,21 @@ export default class TodosList extends Component {
     deleteTodo(id) {
         const token = isAuthenticated().token;
 
-        fetch('/todos/' + id, {
+        fetch(`/todos/${id}`, {
             method: "DELETE",
-            Accept: "application/json",
-            "Content-type": "application/json",
             headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
                 Authorization: `Bearer ${token}`
             }
         })
         .then(response => {
             return response.json()
         })
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data)
+            this.props.history.push('/')
+        })
         .catch(error => console.log(error));
     };
 

@@ -37,13 +37,13 @@ export default class CreateTodo extends Component {
         }
 
         if (!newTodo.todo_description) {
-            return this.setState({ error: "Description required"})
+            return this.setState({ error: "Description required", loading: false})
         }
         if (!newTodo.todo_priority) {
-            return this.setState({ error: "Priority required"})
+            return this.setState({ error: "Priority required", loading: false})
         }
         if (newTodo.todo_notes.length > 50 || newTodo.todo_description.length > 50) {
-            return this.setState({ error: "Text fields must be under 50 characters."})
+            return this.setState({ error: "Text fields must be under 50 characters.", loading: false})
         }
 
         const token = isAuthenticated().token
