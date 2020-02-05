@@ -59,8 +59,6 @@ userSchema.methods = {
 }
 
 userSchema.pre('remove', function(next) {
-    // 'this' is the client being removed. Provide callbacks here if you want
-    // to be notified of the calls' result.
     Todo.remove({postedBy: this._id}).exec();
     next();
 });

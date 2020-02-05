@@ -76,21 +76,3 @@ exports.deleteTodo = (req, res) => {
         else res.send('Successfully removed');
     });
 }
-
-// exports.isPoster = (req, res, next) => {
-//     Todo.findById(req.params.id, (err, todo) => {
-//         if (!todo) {
-//             res.status(404).send("Todo not found");
-//         } else {
-//             req.todo = todo
-//             let isPoster = req.todo && req.auth && todo.postedBy._id == req.auth._id;
-        
-//             if (!isPoster) {
-//                 return res.status(403).json({
-//                     error: "User is not authorized"
-//                 })
-//             }
-//             next();
-//         }
-//     });
-// }

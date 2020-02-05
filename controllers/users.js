@@ -31,22 +31,6 @@ exports.getUser = (req, res) => {
     return res.json(req.profile)
 };
 
-// exports.updateUser = (req, res) => {
-//     let user = req.profile;
-//     console.log(user)
-//     user.updated = Date.now()
-//     user.save((err, result) => {
-//         if (err) {
-//             return res.status(400).json({
-//                 error: err
-//             })
-//         }
-//         user.hashed_password = undefined;
-//         user.salt = undefined;
-//         res.json(user)
-//     })
-// };
-
 exports.updateUser = (req, res) => {
     let user = req.profile;
     if (!user) {
