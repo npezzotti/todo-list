@@ -15,7 +15,7 @@ const path = require('path')
 app.use(cors());
 app.use(bodyParser.json());
 app.use(expressValidator());
-app.use(logger());
+app.use(logger('dev'));
 app.use(cookieParser());
 
 
