@@ -11,11 +11,7 @@ const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const port = process.env.PORT || 3001;
 const path = require('path')
-var StatsD = require('hot-shots');
-var dogstatsd = new StatsD();
 
-// Increment a counter.
-dogstatsd.increment('page.views')
 
 app.use(cors());
 app.use(bodyParser.json());
