@@ -67,7 +67,7 @@ export default class EditTodo extends Component {
             return this.setState({ error: "Priority required"})
         }
         if (updatedTodo.todo_notes.length > 50 || updatedTodo.todo_description.length > 50) {
-            return this.setState({ error: "Text fields must be under 50 characters."})
+            return this.setState({ error: "Text fields must be less than 50 characters."})
         }
 
         const token = isAuthenticated().token;
