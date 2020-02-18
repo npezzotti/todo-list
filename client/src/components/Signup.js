@@ -70,7 +70,7 @@ export default class Signup extends Component {
         const { name, email, password, error, open } = this.state;
         return (
             <div className="container">
-                <h2 className="mt-5 mb-5">Sign up</h2>
+                <h2 className="mt-5">Sign up</h2>
                 <p className="mb-5">Already have an account? <Link to='/signin'>Sign in.</Link> </p>
                 <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                     {error}
