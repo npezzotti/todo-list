@@ -12,8 +12,7 @@ const authRoutes = require('./routes/auth');
 const port = process.env.PORT || 3001;
 const path = require('path')
 
-
-app.use(cors());
+app.use(cors({ origin: "https://my-taskmanager.herokuapp.com"}));
 app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(logger('dev'));
