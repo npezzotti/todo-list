@@ -12,7 +12,7 @@ const authRoutes = require('./routes/auth');
 const port = process.env.PORT || 3001;
 const path = require('path')
 
-app.use(cors({ origin: "https://my-taskmanager.herokuapp.com"}));
+app.use(cors({ origin: "https://my-taskmanager.herokuapp.com" }));
 app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(logger('dev'));
@@ -23,10 +23,10 @@ mongoose.connect(
     process.env.MONGO_URI,
     {useNewUrlParser: true}
 )
-.then(() => console.log('DB Connected'))
+.then(() => console.log('Connected to MongoDB'))
 
 mongoose.connection.on('error', err => {
-    console.log('DB connection error: ' + err.message)
+    console.log('MongoDB connection error: ' + err.message)
 })
 
 app.use('/todos', todoRoutes);

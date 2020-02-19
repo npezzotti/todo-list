@@ -1,5 +1,4 @@
 const nodeMailer = require("nodemailer");
-const defaultEmailData = { from: "noreply@my-todo-app.com" };
 
 exports.sendEmail = emailData => {
     const transporter = nodeMailer.createTransport({

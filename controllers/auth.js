@@ -20,7 +20,7 @@ exports.signin = (req, res) => {
     User.findOne({ email }, (err, user) => {
         if (err || !user) {
             return res.status(401).json({
-                error: "User with that email does not exist"
+                error: "User with that email does not exist."
             })
         }
         if (!user.authenticate(password)) {
@@ -37,7 +37,7 @@ exports.signin = (req, res) => {
 
 exports.signout = (req, res) => {
     res.clearCookie("t");
-    return res.json({ message: "Signout successful!" })
+    return res.json({ message: "Sign out successful!" })
 };
 
 exports.requireSignin = expressJwt({
@@ -46,25 +46,20 @@ exports.requireSignin = expressJwt({
 })
 
 exports.forgotPassword = (req, res) => {
-    if (!req.body) return res.status(400).json({ message: "No body in request." });
-    if (!req.body.email) return res.status(400).json({ message: "No email provided." })
+    if (!req.body.email) return res.status(400).json({ message: "Please enter email." })
     const { email } = req.body;
     User.findOne({ email }, (err, user) => {
         if (err || !user) {
             return res.status(401).json({ message: "User with that email does not exist."})
         }
         const token = jwt.sign(
-            {_id: user.id, iss: "TODO LIST"},
+            {_id: user.id, issuer: "MY TODO LIST"},
             process.env.JWT_SECRET
         )
         const emailData = {
-            email: "noreply@my-todo-list.herokuapp.com",
             to: email,
-            subject: "Password Reset Instructions",
-            text: `Please user the following link to reset your password: ${process.env.CLIENT_URL}/reset-password/${token}`,
-            html: `<p>Please use the following link to reset your password:</p> <p>${
-                process.env.CLIENT_URL
-            }/reset-password/${token}</p>`
+            subject: "My Todo List Password Reset Instructions",
+            html: `<p>Please use the following link to reset your password:</p> <a href=${process.env.CLIENT_URL}/reset-password/${token}>${process.env.CLIENT_URL}/reset-password/${token}</a>`
         }
         return User.updateOne({ resetPasswordLink: token }, (err, success) => {
             if (err) {

@@ -36,7 +36,7 @@ export default class ResetPassword extends Component {
         const { message, error } = this.state;
         return (
             <div className="container">
-                <h4 className="mt-5 mb-5">Reset Your Password</h4>
+                <h2 className="mt-5 mb-5">Reset Your Password</h2>
                 {message && (
                     <div className="alert alert-primary">
                         Great! Now you can <Link to="/signin">login</Link> with your new password.
@@ -47,9 +47,6 @@ export default class ResetPassword extends Component {
                         {error}
                     </div>
                 )}
-                <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
-                    {error}
-                </div>
                 <form>
                     <div>
                         <input 
