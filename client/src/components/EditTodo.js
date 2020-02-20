@@ -5,10 +5,6 @@ import axios from 'axios';
 export default class EditTodo extends Component {
     constructor(props) {
         super(props);
-
-        this.handleChange = this.handleChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-
         this.state = {
             todo_description: '',
             todo_notes: '',
@@ -33,7 +29,7 @@ export default class EditTodo extends Component {
             })
     };
 
-    handleChange (e) {
+    handleChange = (e) => {
         if (e.target.name === "todo_completed") {
             this.setState({
                 todo_completed: !this.state.todo_completed
@@ -45,13 +41,13 @@ export default class EditTodo extends Component {
         }
     }
 
-    onChangeTodoCompleted() {
+    onChangeTodoCompleted = () => {
         this.setState({
             todo_completed: !this.state.todo_completed
         });
     };
 
-    async onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
         const updatedTodo = {
             todo_description: this.state.todo_description,
@@ -167,13 +163,8 @@ export default class EditTodo extends Component {
                             Completed
                         </label>                        
                     </div>
-
                     <br />
-
-                    <div className="form-group">
-                        <input type="submit" value="Update Todo" className="btn btn-raised btn-primary" />
-                        <button type="button" value="Cancel" className="btn btn-primary btn-warning" />
-                    </div>
+                    <input type="submit" value="Update Todo" className="btn btn-raised btn-primary" />
                 </form>
             </div>
         )

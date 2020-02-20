@@ -61,7 +61,6 @@ export const updateUser = (user, next) => {
     if (typeof window !== 'undefined') {
         if (localStorage.getItem('jwt')) {
             let auth = JSON.parse(localStorage.getItem('jwt'));
-            console.log(auth)
             auth.user = user;
             localStorage.setItem('jwt', JSON.stringify(auth));
             next();
@@ -70,7 +69,6 @@ export const updateUser = (user, next) => {
 }
 
 export const forgotPassword = email => {
-    console.log("email: ", email)
     return fetch("/auth/forgot-password", {
         method: "PUT",
         headers: {
@@ -80,7 +78,6 @@ export const forgotPassword = email => {
         body: JSON.stringify({ email })
     })
     .then(response => {
-        console.log("forgot password response: ", response)
         return response.json()
     })
     .catch(error => { console.log(error) })
@@ -97,7 +94,6 @@ export const resetPassword = resetInfo => {
         body: JSON.stringify(resetInfo)
     })
     .then(response => {
-        console.log(response)
         return response.json()
     })
     .catch(error => {

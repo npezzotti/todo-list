@@ -8,7 +8,7 @@ const Todo = props => (
         <td style={{textDecoration: props.todo.todo_completed ? 'line-through' : ''}}>{props.todo.todo_notes}</td>
         <td style={{textDecoration: props.todo.todo_completed ? 'line-through' : ''}}>{props.todo.todo_priority}</td>
         <td>
-            <Link className="text-primary" to={"/edit/" + props.todo._id}>Edit</Link> | <a className="text-warning" href="/" onClick={() => { props.deleteTodo(props.todo._id) }}>Delete</a>
+            <Link className="text-primary" to={"/edit/" + props.todo._id}>Edit</Link> | <a className="text-danger" href="/" onClick={() => { props.deleteTodo(props.todo._id) }}>Delete</a>
         </td>
     </tr>
 )
@@ -16,10 +16,6 @@ const Todo = props => (
 export default class TodosList extends Component {
     constructor(props) {
         super(props);
-
-        this.todoList = this.todoList.bind(this);
-        this.deleteTodo = this.deleteTodo.bind(this);
-
         this.state = {todos: [], loading: false};
     };
 
@@ -50,7 +46,7 @@ export default class TodosList extends Component {
         this.getTodos()
     };
 
-    deleteTodo(id) {
+    deleteTodo = (id) => {
         const token = isAuthenticated().token;
 
         fetch(`/todos/${id}`, {
@@ -71,7 +67,7 @@ export default class TodosList extends Component {
         .catch(error => console.log(error));
     };
 
-    todoList() {
+    todoList = () => {
         return this.state.todos.map((currentTodo, i) => {
             return <Todo deleteTodo={this.deleteTodo} todo={currentTodo} key={i} />
         })

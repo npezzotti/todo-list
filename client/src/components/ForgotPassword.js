@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { forgotPassword } from '../auth'
 
 export default class ForgotPassword extends Component {
-    state = {
-        email: "",
-        message: "",
-        error: ""
-    }
+    constructor() {
+        super();
+        this.state = {
+            email: "",
+            message: "",
+            error: ""
+        };
+    };
 
     forgot_password = e => {
         e.preventDefault();

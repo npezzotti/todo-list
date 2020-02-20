@@ -4,10 +4,6 @@ import { isAuthenticated } from '../auth';
 export default class CreateTodo extends Component {
     constructor(props) {
         super(props);
-
-        this.handleChange = this.handleChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-
         this.state = {
             todo_description: "",
             todo_notes: "",
@@ -18,14 +14,14 @@ export default class CreateTodo extends Component {
         }
     }
 
-    handleChange (e) {
+    handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
             error: ""
         })
     }
 
-    async onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault()
         this.setState({ loading: true })
         const newTodo = {
@@ -143,9 +139,8 @@ export default class CreateTodo extends Component {
                             <label className="form-check-label">High</label>
                         </div>
                     </div>
-                    <div className="form-group">
-                        <input type="submit" value="Create Todo" className="btn btn-raised btn-primary" />
-                    </div>
+                    <br />
+                    <input type="submit" value="Create Todo" className="btn btn-raised btn-primary" />
                 </form>
             </div>
         )

@@ -9,18 +9,6 @@ exports.getTodos = (req, res) => {
     })
 };
 
-// exports.getTodoById = (req, res) => {
-//     let id = req.params.id;
-//     Todo.findById(id, (err, todo) => {
-//         if (err) {
-//             return res.status(400).json({
-//                 error: err
-//             })
-//         }
-//         res.json(todo)
-//     });
-// };
-
 exports.getTodoById = (req, res, next, id) => {
     console.log("params middleware")
     Todo.findById(id)
