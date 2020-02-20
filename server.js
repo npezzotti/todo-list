@@ -12,12 +12,6 @@ const authRoutes = require('./routes/auth');
 const port = process.env.PORT || 3001;
 const path = require('path')
 
-app.use(cors({ origin: "https://my-taskmanager.herokuapp.com" }));
-app.use(bodyParser.json());
-app.use(expressValidator());
-app.use(logger('dev'));
-app.use(cookieParser());
-
 
 mongoose.connect(
     process.env.MONGO_URI,
@@ -29,14 +23,30 @@ mongoose.connection.on('error', err => {
     console.log('MongoDB connection error: ' + err.message)
 })
 
+
+app.use(cors({ origin: "https://my-taskmanager.herokuapp.com" }));
+app.use(bodyParser.json());
+app.use(expressValidator());
+app.use(logger('dev'));
+app.use(cookieParser());
+
 app.use('/todos', todoRoutes);
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 
+app.use((err, req, res, next) => {
+    if (err.name === 'UnauthorizedError') {
+      res.status(401).json({ error: 'You are not authorized to do this.' });
+    }
+});
+
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
     app.get('*', (req, res) => {    
-        res.sendfile(path.resolve(__dirname = 'client', 'build', 'index.html'));  })}
+        res.sendfile(path.resolve(__dirname = 'client', 'build', 'index.html'));  
+    })
+}
 
 
 app.listen(port, function() {

@@ -39,7 +39,6 @@ exports.getTodosByUser = (req, res) => {
 };
 
 exports.createTodo = (req, res) => {
-    console.log(req.body)
     let todo = new Todo(req.body);
     todo.save()
     .then(todo => {
@@ -71,6 +70,7 @@ exports.updateTodo = (req, res) => {
 };
 
 exports.deleteTodo = (req, res) => {
+    console.log(req)
     Todo.findByIdAndDelete({_id: req.params.id}, function(err, todo){
         if (err) res.json(err);
         else res.send('Successfully removed');
