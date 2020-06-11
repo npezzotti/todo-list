@@ -1,8 +1,18 @@
+const tracer = require('dd-trace').init({
+    analytics: true, 
+    runtimeMetrics: true,
+    logInjection: true,
+    env: process.env.NODE_ENV === 'production' ? 'task-app-prod' : 'task-app-testing',
+    tags: { 
+      creator: 'Nathan Pezzotti'
+    }
+  });
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const winston = require('winston');
 const cors = require('cors');
-const logger = require('morgan');
 const expressValidator = require('express-validator');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
@@ -10,9 +20,38 @@ const todoRoutes = require('./routes/todos');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const port = process.env.PORT || 3001;
-const path = require('path')
+const path = require('path');
+const { json } = require('body-parser');
 
+// LOGGER CONFIGURATION
+// const logger = new winston.createLogger({
+//     transports: [
+//         new winston.transports.File({
+//             filename: './logs/todo-list.log'
+//         })
+//     ]
+// });
 
+// const logRequest = (req, res, next) => {
+//     logger.info(req.url)
+//     next()
+// }
+// app.use(logRequest)
+
+// const logError = (err, req, res, next) => {
+//     logger.error(err)
+//     next()
+// }
+// app.use(logError)
+
+const morgan = require('morgan');
+var accessLogStream = rfs.createStream('access.log', {
+    interval: '1d', // rotate daily
+    path: path.join(__dirname, 'log')
+  })
+  
+
+// DATABASE CONFIG
 mongoose.connect(
     process.env.MONGO_URI,
     {useNewUrlParser: true}
@@ -20,27 +59,29 @@ mongoose.connect(
 .then(() => console.log('Connected to MongoDB'))
 
 mongoose.connection.on('error', err => {
-    console.log('MongoDB connection error: ' + err.message)
+    console.log(`MongoDB connection error: ${err.message}`)
 })
 
-
+// MIDDLEWARE
 app.use(cors({ origin: "https://my-taskmanager.herokuapp.com" }));
 app.use(bodyParser.json());
 app.use(expressValidator());
-app.use(logger('dev'));
 app.use(cookieParser());
+app.use(morgan('combined', { stream: accessLogStream }))
 
+// ROUTES
 app.use('/todos', todoRoutes);
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 
+// AUTH ERROR HANDLER
 app.use((err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {
       res.status(401).json({ error: 'You are not authorized to do this.' });
     }
 });
 
-
+// PRODUCTION SETTINGS FOR CLIENTS
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
     app.get('*', (req, res) => {    
@@ -48,7 +89,7 @@ if (process.env.NODE_ENV === 'production') {
     })
 }
 
-
+// SERVER
 app.listen(port, function() {
     console.log("Server is running on Port: " + port);
 });

@@ -10,10 +10,8 @@ exports.getUsers = (req, res) => {
 };
 
 exports.userById = (req, res, next, id) => {
-    console.log(id)
     User.findById(id)
-        .exec((err, user) => {
-            console.log(err)
+    .exec((err, user) => {
         if (err || !user) {
             res.status(400).json({
                 error: "User not found."
@@ -22,7 +20,7 @@ exports.userById = (req, res, next, id) => {
             req.profile = user;
             next()
         }
-    })
+    });
 };
 
 exports.getUser = (req, res) => {

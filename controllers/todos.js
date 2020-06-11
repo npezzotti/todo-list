@@ -10,7 +10,6 @@ exports.getTodos = (req, res) => {
 };
 
 exports.getTodoById = (req, res, next, id) => {
-    console.log("params middleware")
     Todo.findById(id)
     .populate("postedBy", "_id name")
     .exec((err, todo) => {
@@ -82,7 +81,6 @@ exports.deleteTodo = (req, res) => {
 }
 
 exports.isAuthor = (req, res, next) => {
-    console.log(req.todo, req.auth)
     let isAuthor = req.todo && req.auth && req.todo.postedBy._id == req.auth._id
     if (!isAuthor) {
         return res.status(403).json({
