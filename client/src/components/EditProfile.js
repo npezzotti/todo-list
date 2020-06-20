@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { isAuthenticated, updateUser } from '../auth';
-
+import Loader from 'react-loader-spinner';
 export default class EditProfile extends Component {
     constructor(props) {
         super(props)
@@ -83,20 +83,29 @@ export default class EditProfile extends Component {
     render() {
         const { name, email, password, error, loading } = this.state;
         return (
-            <div className="container">
-                <h3 className="mt-5 mb-5">Edit Info</h3>
-                <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
-                    {error}
-                </div>
+            <>
                 {loading ? (
-                    <div className="jumbotron text-center">
-                        <h2>Loading</h2>
-                    </div> 
+                    <div
+                    style={{
+                    width: "100%",
+                    height: "100",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                    }}
+                    >
+                        <Loader type="ThreeDots" color="#5A5A5A" height="100" width="100" />
+                    </div>
                 ) : (
-                    ""
+                    <div className="container">
+                        <h3 className="mt-5 mb-5">Edit Info</h3>
+                        <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
+                            {error}
+                        </div>
+                        {this.editForm(name, email, password)}
+                    </div>
                 )}
-                {this.editForm(name, email, password)}
-            </div>
+            </>
         )
     }
 }

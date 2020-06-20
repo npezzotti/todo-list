@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { isAuthenticated } from '../auth';
+import Loader from 'react-loader-spinner';
 import axios from 'axios';
 
 export default class EditTodo extends Component {
@@ -10,24 +11,31 @@ export default class EditTodo extends Component {
             todo_notes: '',
             todo_priority: '',
             todo_completed: false,
-            error: ""
+            error: "",
+            loading: false
         }
     }
 
     componentDidMount() {
+        this.getTodoById();
+    };
+
+    getTodoById = () => {
+        this.setState({ loading: true })
         axios.get('/todos/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     todo_description: response.data.todo_description,
                     todo_notes: response.data.todo_notes,
                     todo_priority: response.data.todo_priority,
-                    todo_completed: response.data.todo_completed
+                    todo_completed: response.data.todo_completed,
+                    loading: false
                 })
             })
             .catch(function(error) {
                 console.log(error);
-            })
-    };
+        })
+    }
 
     handleChange = (e) => {
         if (e.target.name === "todo_completed") {
@@ -88,85 +96,103 @@ export default class EditTodo extends Component {
     }
 
     render() {
-        const { todo_description, todo_notes, todo_priority, todo_completed, error } = this.state;
+        const { todo_description, todo_notes, todo_priority, todo_completed, error, loading } = this.state;
         return (
-            <div>
-                <h3 className="mt-5 mb-5">Update Todo</h3>
-                <div className="alert alert-danger" style={{display: error ? "" : "none"}}>
-                    {error}
-                </div>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group"> 
-                        <label>Description: </label>
-                        <input  type="text"
-                                name="todo_description"
-                                className="form-control"
-                                value={todo_description}
-                                onChange={this.handleChange}
-                                />
+            <>
+                {loading ? (
+                    <div
+                    style={{
+                    width: "100%",
+                    height: "100",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                    }}
+                    >
+                        <Loader type="ThreeDots" color="#5A5A5A" height="100" width="100" />
                     </div>
-                    <div className="form-group">
-                        <label>Notes: </label>
-                        <input 
-                                type="text" 
-                                name="todo_notes"
-                                className="form-control"
-                                value={todo_notes}
-                                onChange={this.handleChange}
-                                />
-                    </div>
-                    <div className="form-group">
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="todo_priority" 
-                                    id="priorityLow" 
-                                    value="Low"
-                                    checked={todo_priority==='Low'} 
-                                    onChange={this.handleChange}
-                                    />
-                            <label className="form-check-label">Low</label>
+                ) : (
+                    <>
+                        <div>
+                            <h3 className="mt-5 mb-5">Update Todo</h3>
+                            <div className="alert alert-danger" style={{display: error ? "" : "none"}}>
+                                {error}
+                            </div>
+                            <form onSubmit={this.onSubmit}>
+                                <div className="form-group"> 
+                                    <label>Description: </label>
+                                    <input  type="text"
+                                            name="todo_description"
+                                            className="form-control"
+                                            value={todo_description}
+                                            onChange={this.handleChange}
+                                            />
+                                </div>
+                                <div className="form-group">
+                                    <label>Notes: </label>
+                                    <input 
+                                            type="text" 
+                                            name="todo_notes"
+                                            className="form-control"
+                                            value={todo_notes}
+                                            onChange={this.handleChange}
+                                            />
+                                </div>
+                                <div className="form-group">
+                                    <div className="form-check form-check-inline">
+                                        <input  className="form-check-input" 
+                                                type="radio" 
+                                                name="todo_priority" 
+                                                id="priorityLow" 
+                                                value="Low"
+                                                checked={todo_priority==='Low'} 
+                                                onChange={this.handleChange}
+                                                />
+                                        <label className="form-check-label">Low</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input  className="form-check-input" 
+                                                type="radio" 
+                                                name="todo_priority" 
+                                                id="priorityMedium" 
+                                                value="Medium" 
+                                                checked={todo_priority==='Medium'} 
+                                                onChange={this.handleChange}
+                                                />
+                                        <label className="form-check-label">Medium</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input  className="form-check-input" 
+                                                type="radio" 
+                                                name="todo_priority" 
+                                                id="priorityHigh" 
+                                                value="High" 
+                                                checked={todo_priority==='High'} 
+                                                onChange={this.handleChange}
+                                                />
+                                        <label className="form-check-label">High</label>
+                                    </div>
+                                </div>
+                                <div className="form-check">
+                                    <input  className="form-check-input"
+                                            id="completedCheckbox"
+                                            type="checkbox"
+                                            name="todo_completed"
+                                            onChange={this.handleChange}
+                                            checked={todo_completed}
+                                            value={todo_completed}
+                                            />
+                                    <label className="form-check-label" htmlFor="completedCheckbox">
+                                        Completed
+                                    </label>                        
+                                </div>
+                                <br />
+                                <input type="submit" value="Update Todo" className="btn btn-raised btn-primary" />
+                            </form>
                         </div>
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="todo_priority" 
-                                    id="priorityMedium" 
-                                    value="Medium" 
-                                    checked={todo_priority==='Medium'} 
-                                    onChange={this.handleChange}
-                                    />
-                            <label className="form-check-label">Medium</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="todo_priority" 
-                                    id="priorityHigh" 
-                                    value="High" 
-                                    checked={todo_priority==='High'} 
-                                    onChange={this.handleChange}
-                                    />
-                            <label className="form-check-label">High</label>
-                        </div>
-                    </div>
-                    <div className="form-check">
-                        <input  className="form-check-input"
-                                id="completedCheckbox"
-                                type="checkbox"
-                                name="todo_completed"
-                                onChange={this.handleChange}
-                                checked={todo_completed}
-                                value={todo_completed}
-                                />
-                        <label className="form-check-label" htmlFor="completedCheckbox">
-                            Completed
-                        </label>                        
-                    </div>
-                    <br />
-                    <input type="submit" value="Update Todo" className="btn btn-raised btn-primary" />
-                </form>
-            </div>
+                    </>
+                )}
+            </>
         )
     }
 }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { isAuthenticated } from '../auth';
+import Loader from 'react-loader-spinner';
 
 const Todo = props => (
     <tr>
@@ -77,8 +78,16 @@ export default class TodosList extends Component {
         return (
             <div>
                 {this.state.loading ? (
-                    <div className="jumbotron text-center">
-                        <h2>Loading</h2>
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                      }}
+                    >
+                      <Loader type="ThreeDots" color="#5A5A5A" height="100" width="100" />
                     </div>
                 ) : (
                     <>

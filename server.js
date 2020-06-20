@@ -52,12 +52,12 @@ app.use((err, req, res, next) => {
 });
 
 // PRODUCTION SETTINGS FOR CLIENTS
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
-    app.get('*', (req, res) => {    
-        res.sendfile(path.resolve(__dirname = 'client', 'build', 'index.html'));  
-    });
-};
+// if (process.env.NODE_ENV === 'production') {
+//     app.use(express.static(path.join(__dirname, 'client/build')));
+//     app.get('*', (req, res) => {    
+//         res.sendfile(path.resolve(__dirname = 'client', 'build', 'index.html'));  
+//     });
+// };
 
 // SERVER
 app.listen(port, () => {

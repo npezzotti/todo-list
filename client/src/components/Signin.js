@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { signin, authenticate } from '../auth';
-
+import Loader from 'react-loader-spinner';
 export default class Signin extends Component {
     constructor() {
         super();
@@ -59,24 +59,40 @@ export default class Signin extends Component {
         }
         return (
             <div className="container">
-                <h2 className="mt-5">Sign in</h2>
-                <p className="mb-5">New user? <Link to='/signup'>Sign up here.</Link> </p>
-                <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
-                    {error}
-                </div>
                 {loading ? (
-                    <div className="jumbotron text-center">
-                        <h2>Loading</h2>
-                    </div> 
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                      }}
+                    >
+                      <Loader type="ThreeDots" color="#5A5A5A" height="100" width="100" />
+                    </div>
                 ) : (
-                    ""
+                    <>
+                        <h2 className="mt-5">Sign in</h2>
+                        <p className="mb-5">New user? <Link to='/signup'>Sign up here.</Link> </p>
+                        <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
+                            {error}
+                        </div>
+                        {loading ? (
+                            <div className="jumbotron text-center">
+                                <h2>Loading</h2>
+                            </div> 
+                        ) : (
+                            ""
+                        )}
+                        {this.signupForm(email, password)}
+                        <p>
+                            <Link to="/forgot-password" className="text-danger">
+                                Forgot Password
+                            </Link>
+                        </p>
+                    </>
                 )}
-                {this.signupForm(email, password)}
-                <p>
-                    <Link to="/forgot-password" className="text-danger">
-                        Forgot Password
-                    </Link>
-                </p>
             </div>
         )
     }

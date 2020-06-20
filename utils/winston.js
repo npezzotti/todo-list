@@ -1,11 +1,18 @@
-const appRoot = require('app-root-path');
 const winston = require('winston');
+const path = require('path');
+const appRoot = require('app-root-path');
+const fs = require('fs');
+
+// create path to log directory 
+const logDirectory = path.resolve(`${appRoot}`, "logs");
+// check if log firectory exists and create if needed
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
 // define the custom settings for each transport (file, console)
 const options = {
   file: {
     level: 'info',
-    filename: `${appRoot}/logs/task-app.log`,
+    filename: path.resolve(logDirectory, 'task-app.log'),
     handleExceptions: true,
     json: true,
     maxsize: 5242880, // 5MB
@@ -13,21 +20,22 @@ const options = {
     colorize: false,
   },
   console: {
+    colorize: true,
     level: 'debug',
     handleExceptions: true,
     json: false,
-    colorize: true,
   },
 };
 
 // instantiate a new Winston Logger with the settings defined above
 const logger = new winston.createLogger({
   transports: [
-    new winston.transports.File(options.file),
-    new winston.transports.Console(options.console)
+    new winston.transports.File(options.file)
   ],
   exitOnError: false, // do not exit on handled exceptions
 });
+
+if (process.env.NODE_ENV !== 'production') logger.add(new winston.transports.Console(options.console));
 
 // create a stream object with a 'write' function that will be used by `morgan`
 logger.stream = {

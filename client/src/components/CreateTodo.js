@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { isAuthenticated } from '../auth';
-
+import Loader from 'react-loader-spinner';
 export default class CreateTodo extends Component {
     constructor(props) {
         super(props);
@@ -71,78 +71,89 @@ export default class CreateTodo extends Component {
     render() {
         const { todo_description, todo_notes, todo_priority, error, loading } = this.state;
         return (
-            <div style={{marginTop: 10}}>
-                <h3 className="mt-5 mb-5">Create New Todo</h3>
-                <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
-                    {error}
-                </div>
+            <>
                 {loading ? (
-                    <div className="jumbotron text-center">
-                        <h2>Loading</h2>
-                    </div> 
+                    <div
+                    style={{
+                      width: "100%",
+                      height: "100",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}
+                    >
+                        <Loader type="ThreeDots" color="#5A5A5A" height="100" width="100" />
+                    </div>
                 ) : (
-                    ""
-                )}
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Description</label>
-                        <input 
-                            type="text"
-                            name="todo_description"
-                            className="form-control"
-                            value={todo_description}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Notes: </label>
-                        <input 
-                                type="text" 
-                                name="todo_notes"
-                                className="form-control"
-                                value={todo_notes}
-                                onChange={this.handleChange}
+                    <>
+                        <div style={{marginTop: 10}}>
+                        <h3 className="mt-5 mb-5">Create New Todo</h3>
+                        <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
+                            {error}
+                        </div>
+                        <form onSubmit={this.onSubmit}>
+                            <div className="form-group">
+                                <label>Description</label>
+                                <input 
+                                    type="text"
+                                    name="todo_description"
+                                    className="form-control"
+                                    value={todo_description}
+                                    onChange={this.handleChange}
                                 />
+                            </div>
+                            <div className="form-group">
+                                <label>Notes: </label>
+                                <input 
+                                        type="text" 
+                                        name="todo_notes"
+                                        className="form-control"
+                                        value={todo_notes}
+                                        onChange={this.handleChange}
+                                        />
+                            </div>
+                            <div className="form-group">
+                                <div className="form-check form-check-inline">
+                                    <input  className="form-check-input" 
+                                            type="radio" 
+                                            name="todo_priority" 
+                                            id="priorityLow" 
+                                            value="Low"
+                                            checked={todo_priority==='Low'} 
+                                            onChange={this.handleChange}
+                                            />
+                                    <label className="form-check-label">Low</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input  className="form-check-input" 
+                                            type="radio" 
+                                            name="todo_priority" 
+                                            id="priorityMedium" 
+                                            value="Medium" 
+                                            checked={todo_priority==='Medium'} 
+                                            onChange={this.handleChange}
+                                            />
+                                    <label className="form-check-label">Medium</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input  className="form-check-input" 
+                                            type="radio" 
+                                            name="todo_priority" 
+                                            id="priorityHigh" 
+                                            value="High" 
+                                            checked={todo_priority==='High'} 
+                                            onChange={this.handleChange}
+                                            />
+                                    <label className="form-check-label">High</label>
+                                </div>
+                            </div>
+                            <br />
+                            <input type="submit" value="Create Todo" className="btn btn-raised btn-primary" />
+                        </form>
                     </div>
-                    <div className="form-group">
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="todo_priority" 
-                                    id="priorityLow" 
-                                    value="Low"
-                                    checked={todo_priority==='Low'} 
-                                    onChange={this.handleChange}
-                                    />
-                            <label className="form-check-label">Low</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="todo_priority" 
-                                    id="priorityMedium" 
-                                    value="Medium" 
-                                    checked={todo_priority==='Medium'} 
-                                    onChange={this.handleChange}
-                                    />
-                            <label className="form-check-label">Medium</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="todo_priority" 
-                                    id="priorityHigh" 
-                                    value="High" 
-                                    checked={todo_priority==='High'} 
-                                    onChange={this.handleChange}
-                                    />
-                            <label className="form-check-label">High</label>
-                        </div>
-                    </div>
-                    <br />
-                    <input type="submit" value="Create Todo" className="btn btn-raised btn-primary" />
-                </form>
-            </div>
+                </>
+                )}
+            </>
         )
     }
 }
