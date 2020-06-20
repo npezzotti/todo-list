@@ -9,7 +9,7 @@ const Todo = props => (
         <td style={{textDecoration: props.todo.todo_completed ? 'line-through' : ''}}>{props.todo.todo_notes}</td>
         <td style={{textDecoration: props.todo.todo_completed ? 'line-through' : ''}}>{props.todo.todo_priority}</td>
         <td>
-            <Link className="text-primary" to={`/edit/${props.todo._id}`}>Edit</Link> | <p className="text-danger" onClick={ () => props.deleteTodo(props.todo._id) }>Delete</p>
+            <Link className="text-primary" to={`/edit/${props.todo._id}`}>Edit</Link> | <span className="text-danger" onClick={ () => props.deleteTodo(props.todo._id) }>Delete</span>
         </td>
     </tr>
 )
@@ -17,7 +17,7 @@ const Todo = props => (
 export default class TodosList extends Component {
     constructor(props) {
         super(props);
-        this.state = {todos: [], loading: false};
+        this.state = { todos: [], loading: false };
     };
 
     getTodos = () => {
@@ -60,7 +60,7 @@ export default class TodosList extends Component {
             }
         })
         .then(response => {
-            this.props.history.push('/');
+            this.getTodos();
         })
         .catch(error => console.log(error));
     };
