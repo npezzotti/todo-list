@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { isAuthenticated, signout } from '../auth';
 import EditProfile from './EditProfile';
-import Loader from 'react-loader-spinner';
+import Spinner from './Spinner';
 export default class Settings extends Component {
     constructor() {
         super();
@@ -97,17 +97,7 @@ export default class Settings extends Component {
                         </div>
                     </div>
                     :
-                    <div
-                      style={{
-                        width: "100%",
-                        height: "100",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center"
-                      }}
-                    >
-                      <Loader type="ThreeDots" color="#5A5A5A" height="100" width="100" />
-                    </div>
+                    <Spinner/>
                 )
             }
             </>

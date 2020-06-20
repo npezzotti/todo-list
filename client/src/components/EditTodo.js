@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { isAuthenticated } from '../auth';
-import Loader from 'react-loader-spinner';
+import Spinner from './Spinner';
 import axios from 'axios';
 
 export default class EditTodo extends Component {
@@ -85,11 +85,7 @@ export default class EditTodo extends Component {
             },
             body: JSON.stringify(updatedTodo)
         })
-        .then(response => { 
-            return response.json() 
-        })
-        .then(data => {
-            console.log(data)
+        .then(response => {
             this.props.history.push('/');
         })
         .catch(error => console.log(error));
@@ -100,17 +96,7 @@ export default class EditTodo extends Component {
         return (
             <>
                 {loading ? (
-                    <div
-                    style={{
-                    width: "100%",
-                    height: "100",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center"
-                    }}
-                    >
-                        <Loader type="ThreeDots" color="#5A5A5A" height="100" width="100" />
-                    </div>
+                    <Spinner/>
                 ) : (
                     <>
                         <div>

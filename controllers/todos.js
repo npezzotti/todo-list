@@ -76,7 +76,7 @@ exports.updateTodo = (req, res) => {
 exports.deleteTodo = (req, res) => {
     Todo.findByIdAndDelete({_id: req.todo._id}, function(err, todo){
         if (err) res.json(err);
-        else res.send('Successfully removed');
+        else res.status(200).json({ message: "Todo succesfully removed!" })
     });
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { signin, authenticate } from '../auth';
-import Loader from 'react-loader-spinner';
+import Spinner from './Spinner';
 export default class Signin extends Component {
     constructor() {
         super();
@@ -60,17 +60,7 @@ export default class Signin extends Component {
         return (
             <div className="container">
                 {loading ? (
-                    <div
-                      style={{
-                        width: "100%",
-                        height: "100",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center"
-                      }}
-                    >
-                      <Loader type="ThreeDots" color="#5A5A5A" height="100" width="100" />
-                    </div>
+                    <Spinner/>
                 ) : (
                     <>
                         <h2 className="mt-5">Sign in</h2>

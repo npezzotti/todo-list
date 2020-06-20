@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { isAuthenticated } from '../auth';
-import Loader from 'react-loader-spinner';
+import Spinner from './Spinner';
 
 const Todo = props => (
     <tr>
@@ -9,7 +9,7 @@ const Todo = props => (
         <td style={{textDecoration: props.todo.todo_completed ? 'line-through' : ''}}>{props.todo.todo_notes}</td>
         <td style={{textDecoration: props.todo.todo_completed ? 'line-through' : ''}}>{props.todo.todo_priority}</td>
         <td>
-            <Link className="text-primary" to={"/edit/" + props.todo._id}>Edit</Link> | <a className="text-danger" href="/" onClick={() => { props.deleteTodo(props.todo._id) }}>Delete</a>
+            <Link className="text-primary" to={`/edit/${props.todo._id}`}>Edit</Link> | <p className="text-danger" onClick={ () => props.deleteTodo(props.todo._id) }>Delete</p>
         </td>
     </tr>
 )
@@ -48,6 +48,7 @@ export default class TodosList extends Component {
     };
 
     deleteTodo = (id) => {
+        this.setState({ loading: true });
         const token = isAuthenticated().token;
 
         fetch(`/todos/${id}`, {
@@ -59,11 +60,7 @@ export default class TodosList extends Component {
             }
         })
         .then(response => {
-            return response.json()
-        })
-        .then(data => {
-            console.log(data)
-            this.props.history.push('/')
+            this.props.history.push('/');
         })
         .catch(error => console.log(error));
     };
@@ -78,17 +75,7 @@ export default class TodosList extends Component {
         return (
             <div>
                 {this.state.loading ? (
-                    <div
-                      style={{
-                        width: "100%",
-                        height: "100",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center"
-                      }}
-                    >
-                      <Loader type="ThreeDots" color="#5A5A5A" height="100" width="100" />
-                    </div>
+                    <Spinner/>
                 ) : (
                     <>
                     <h3 className="lead">{isAuthenticated().user.name}'s Todos</h3>
