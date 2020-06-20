@@ -40,9 +40,9 @@ app.use(cookieParser());
 app.use(require('morgan')('combined', { stream: logger.stream }));
 
 // ROUTES
-app.use('/todos', todoRoutes);
-app.use('/users', userRoutes);
-app.use('/auth', authRoutes);
+app.use('/api/v1/todos', todoRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 // AUTH ERROR HANDLER
 app.use((err, req, res, next) => {

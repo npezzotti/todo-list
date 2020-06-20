@@ -8,6 +8,7 @@ export default class EditProfile extends Component {
             name: this.props.user.name,
             email: this.props.user.email,
             password: "",
+            password2: "",
             error: "",
             loading: false
         }
@@ -22,6 +23,7 @@ export default class EditProfile extends Component {
     onSubmit =  async event => {
         event.preventDefault();
         this.setState({ loading: true })
+        if (this.state.password !== this.state.password2) return this.setState({ error: "Passwords must match", loading: false })
         const token = isAuthenticated().token;
         const user = {
             name: this.state.name,
@@ -57,7 +59,7 @@ export default class EditProfile extends Component {
         })
     }
 
-    editForm = (name, email, password) => (
+    editForm = (name, email, password, password2) => (
         <form>
             <div className="form-group">
                 <label className="text-muted">Name</label>
@@ -68,8 +70,12 @@ export default class EditProfile extends Component {
                 <input onChange={this.handleChange("email")} value={email} type="email" className="form-control" />
             </div>
             <div className="form-group">
-                <label className="text-muted">Password (change or enter old password for authentication)</label>
+                <label className="text-muted">Change Password</label>
                 <input onChange={this.handleChange("password")} value={password} type="password" className="form-control" />
+            </div>
+            <div className="form-group">
+                <label className="text-muted">Confirm New Password</label>
+                <input onChange={this.handleChange("password2")} value={password2} type="password" className="form-control" />
             </div>
             <button onClick={this.onSubmit} className="btn btn-raised btn-primary mr-2">
                 Update
@@ -81,7 +87,7 @@ export default class EditProfile extends Component {
     )
 
     render() {
-        const { name, email, password, error, loading } = this.state;
+        const { name, email, password, password2, error, loading } = this.state;
         return (
             <>
                 {loading ? (
@@ -92,7 +98,7 @@ export default class EditProfile extends Component {
                         <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                             {error}
                         </div>
-                        {this.editForm(name, email, password)}
+                        {this.editForm(name, email, password, password2)}
                     </div>
                 )}
             </>
