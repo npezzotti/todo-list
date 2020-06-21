@@ -22,7 +22,7 @@ export default class EditTodo extends Component {
 
     getTodoById = () => {
         this.setState({ loading: true })
-        axios.get('/todos/' + this.props.match.params.id)
+        axios.get('/api/v1/todos/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     todo_description: response.data.todo_description,
@@ -76,7 +76,7 @@ export default class EditTodo extends Component {
 
         const token = isAuthenticated().token;
 
-        fetch('/todos/' + this.props.match.params.id, {
+        fetch('/api/v1/todos/' + this.props.match.params.id, {
             method: "POST",
             headers: {
                 Accept: "application/json",

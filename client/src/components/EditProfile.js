@@ -30,7 +30,7 @@ export default class EditProfile extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        fetch(`/users/${this.props.user._id}`, {
+        fetch(`/api/v1/users/${this.props.user._id}`, {
             method: "POST",
             headers: {
                 Accept: "application/json",

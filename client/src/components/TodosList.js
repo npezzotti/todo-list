@@ -24,7 +24,7 @@ export default class TodosList extends Component {
         this.setState({loading: true})
         const token = isAuthenticated().token;
         const userId = isAuthenticated().user._id
-        fetch(`/todos/postedBy/${userId}`, {
+        fetch(`/api/v1/todos/postedBy/${userId}`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -51,7 +51,7 @@ export default class TodosList extends Component {
         this.setState({ loading: true });
         const token = isAuthenticated().token;
 
-        fetch(`/todos/${id}`, {
+        fetch(`/api/v1/todos/${id}`, {
             method: "DELETE",
             headers: {
                 Accept: "application/json",

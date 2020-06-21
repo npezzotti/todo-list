@@ -44,7 +44,7 @@ export default class CreateTodo extends Component {
 
         const token = isAuthenticated().token
 
-        fetch('/todos/add', {
+        fetch('/api/v1/todos/add', {
             method: "POST",
             headers: {
                 Accept: "application/json",

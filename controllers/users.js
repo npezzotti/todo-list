@@ -52,7 +52,7 @@ exports.updateUser = (req, res) => {
 
 exports.deleteUser = (req, res) => {
     const user = req.profile;
-    user.remove((error, user) => {
+    user.deleteOne({ user }, (error, user) => {
         if (error) {
             res.status(400).json({ error })
         }
