@@ -32,7 +32,7 @@ exports.getUser = (req, res) => {
 exports.updateUser = (req, res) => {
     let user = req.profile;
     if (!user) {
-        res.status(404).send("user not found");
+        res.status(404).json({ error: "user not found" });
     } else {
         user.name = req.body.name;
         user.email = req.body.email;

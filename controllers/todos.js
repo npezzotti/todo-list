@@ -3,7 +3,7 @@ const Todo = require('../models/todo.model');
 exports.getTodos = (req, res) => {
     Todo.find((err, todos) => {
         if (err) {
-            return res.status(400).json({error: err});
+            return res.status(400).json({ error: err });
         } 
         res.json(todos)
     })
@@ -13,8 +13,8 @@ exports.getTodoById = (req, res, next, id) => {
     Todo.findById(id)
     .populate("postedBy", "_id name")
     .exec((err, todo) => {
-        if(err || !todo) {
-            return res.status(400).json({ error: err })
+        if (err || !todo) {
+            return res.status(400).json({ error: "Todo not found!" })
         }
         req.todo = todo;
         next();
@@ -56,7 +56,7 @@ exports.createTodo = (req, res) => {
 exports.updateTodo = (req, res) => {
     Todo.findById(req.todo._id, (err, todo) => {
         if (!todo) {
-            res.status(404).send("Todo not found");
+            res.status(404).json({ message:"Todo not found" });
         } else {
             todo.todo_description = req.body.todo_description;
             todo.todo_notes = req.body.todo_notes;
@@ -64,7 +64,7 @@ exports.updateTodo = (req, res) => {
             todo.todo_completed = req.body.todo_completed;
 
             todo.save().then(todo => {
-                res.json('Todo updated!')
+                res.json({ message: 'Todo updated!' })
             })
             .catch(err => {
                 res.status(400).send('Update failed!')
