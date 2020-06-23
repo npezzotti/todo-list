@@ -33,9 +33,10 @@ mongoose.connection.on('error', err => {
 });
 
 // MIDDLEWARE
-app.use(cors({ origin: "https://my-taskmanager.herokuapp.com" }));
+app.set('trust proxy', true);
+if (process.env.NODE_ENV !== 'production') app.use(cors({ origin: "http://127.0.0.1:3000" }));
 app.use(bodyParser.json());
-app.use(expressValidator());
+app.use(expressValidator()); 
 app.use(cookieParser());
 app.use(require('morgan')('combined', { stream: logger.stream }));
 
