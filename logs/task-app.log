@@ -1,1 +1,0 @@
-{"message":"10.0.2.2 - - [23/Jun/2020:02:13:54 +0000] \"GET /api/v1/todos/postedBy/5e4845c1c5f0850017d61ca8 HTTP/1.1\" 304 - \"http://127.0.0.1:3000/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36\"\n","level":"info","dd":{"trace_id":"9188619415510548027","span_id":"9188619415510548027"}}
