@@ -2,7 +2,7 @@ const tracer = require('dd-trace').init({
     analytics: true, 
     runtimeMetrics: true,
     logInjection: true,
-    env: process.env.NODE_ENV === 'production' ? 'task-app-prod' : 'task-app-testing',
+    env: process.env.NODE_ENV === 'production' ? 'task-app-prod' : 'task-app-dev',
     tags: { 
       creator: 'Nathan Pezzotti'
     }
