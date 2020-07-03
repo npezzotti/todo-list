@@ -5,8 +5,20 @@ const tracer = require('dd-trace').init({
     env: process.env.NODE_ENV === 'production' ? 'task-app-prod' : 'task-app-dev',
     tags: { 
       creator: 'Nathan Pezzotti'
+    },
+    clientToken: 'pubfedb869dce5301425e853b47a33c14a8'
+});
+
+tracer.use('express', {
+    hooks: {
+        request: (span, req, res) => {
+            if (req.body) {
+                if (req.body.password) delete req.body.password;
+                span.setTag('request.body', req.body);
+            };
+        }
     }
-  });
+});
 
 const express = require('express');
 const app = express();
