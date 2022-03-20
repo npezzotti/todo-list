@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const uuid = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const crypto = require('crypto');
 const Todo = require('./todo.model');
 
@@ -34,7 +34,7 @@ const userSchema = new Schema({
 userSchema.virtual('password')
 .set(function(password) {
     this._password = password;
-    this.salt = uuid();
+    this.salt = uuidv4();
     this.hashed_password = this.encryptPassword(password)
 })
 .get(function() {

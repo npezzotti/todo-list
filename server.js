@@ -1,12 +1,11 @@
 const tracer = require('dd-trace').init({
-    analytics: true, 
     runtimeMetrics: true,
     logInjection: true,
-    env: process.env.NODE_ENV === 'production' ? 'task-app-prod' : 'task-app-dev',
+    env: process.env.NODE_ENV === 'production' ? 'prod' : 'dev',
     tags: { 
       creator: 'Nathan Pezzotti'
     },
-    clientToken: 'pubfedb869dce5301425e853b47a33c14a8'
+    service: 'my-todo-list',
 });
 
 tracer.use('express', {
@@ -25,6 +24,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const expressValidator = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const todoRoutes = require('./routes/todos');
